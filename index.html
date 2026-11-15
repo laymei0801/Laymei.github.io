@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>我的個人網站</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f6fc;
+            color: #26354a;
+            margin: 0;
+            text-align: center;
+        }
+
+        header {
+            background: #17365d;
+            color: white;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            margin-bottom: 12px;
+        }
+
+        section {
+            background: white;
+            max-width: 700px;
+            margin: 25px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000012;
+        }
+
+        button {
+            background: #2878d0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 18px;
+            margin: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #155da9;
+        }
+
+        ul {
+            display: inline-block;
+            text-align: left;
+            line-height: 1.9;
+        }
+
+        .dark {
+            background: #142033;
+            color: white;
+        }
+
+        .dark section {
+            background: #24364e;
+            color: white;
+        }
+
+        footer {
+            padding: 20px;
+            color: #6e8095;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>歡迎來到我的個人網站</h1>
+        <p>程式學習 | 網頁設計 | 遊戲開發</p>
+        <button id="darkBtn">切換深色模式</button>
+    </header>
+
+    <section>
+        <h2>關於我</h2>
+        <button id="aboutBtn">顯示 / 隱藏介紹</button>
+
+        <p id="aboutText">
+            大家好！我是一名喜歡程式設計的大學生。
+            我曾經學習 Python、C++ 與 C#，
+            也使用 Unity 製作過簡單的遊戲。
+            這次希望透過 HTML、CSS 與 jQuery，
+            完成自己的第一個 GitHub 個人網站。
+        </p>
+    </section>
+
+    <section>
+        <h2>我的程式技能</h2>
+        <p>HTML5、CSS、JavaScript、C#、Python</p>
+        <p>目前正在學習 Git、JSON、Ajax 與 jQuery。</p>
+    </section>
+
+    <section>
+        <h2>我的學習紀錄</h2>
+        <p>點擊按鈕，透過 Ajax 讀取 JSON 資料。</p>
+
+        <button id="loadBtn">載入學習紀錄</button>
+
+        <ul id="result"></ul>
+    </section>
+
+    <section>
+        <h2>我的目標</h2>
+        <p>
+            希望未來能開發自己的遊戲，
+            並持續精進網站與軟體開發能力。
+        </p>
+    </section>
+
+    <footer>
+        <p>My Personal Website © 2026</p>
+    </footer>
+
+    <!-- 載入 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // 功能一：切換深色模式
+            $("#darkBtn").click(function () {
+                $("body").toggleClass("dark");
+            });
+
+            // 功能二：顯示或隱藏自我介紹
+            $("#aboutBtn").click(function () {
+                $("#aboutText").slideToggle();
+            });
+
+            // 功能三：用 Ajax 讀取 JSON
+            $("#loadBtn").click(function () {
+
+                $("#result").empty();
+
+                $.getJSON("data.json", function (data) {
+
+                    $.each(data.skills, function (i, skill) {
+                        $("<li>")
+                            .text(skill)
+                            .appendTo("#result");
+                    });
+
+                }).fail(function () {
+                    $("#result").text("資料載入失敗！");
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+</html>
